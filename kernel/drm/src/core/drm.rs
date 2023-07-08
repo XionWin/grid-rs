@@ -45,6 +45,13 @@ impl Drm {
             crtc,
         }
     }
+    
+    pub fn get_mode(&self) -> &crate::core::ModeInfo {
+        match self.connector.modes.iter().find(|x| crate::bitwise_contains!(x.get_mode_type(), crate::ffi::enums::DrmModeType::PREFERRED)) {
+            Some(mode) => mode,
+            None => panic!("Mode not found")
+        }
+    }
 
     fn get_crtcs(fd: libc::c_int, r: &crate::ffi::DrmModeRes) -> Vec<crate::core::Crtc> {
         unsafe {

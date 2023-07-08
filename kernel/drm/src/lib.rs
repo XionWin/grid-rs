@@ -5,5 +5,6 @@ extern crate libc;
 
 pub mod core;
 mod ffi;
+mod macros;
 
 pub use ffi::ConnectionStatus;

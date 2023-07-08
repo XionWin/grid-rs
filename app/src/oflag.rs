@@ -1,5 +1,8 @@
-pub const READ_ONLY: libc::c_int = 0x0000;
-pub const WRITE_ONLY: libc::c_int = 0x0001;
-pub const READ_WRITE: libc::c_int = 0x0002;
-pub const NON_BLOCK: libc::c_int = 0x0800;
-pub const CLOSE_ON_EXEC: libc::c_int = 0x0080000;
+#[repr(C)]
+pub enum OFlag {
+    READ_ONLY = 0x0000,
+    WRITE_ONLY = 0x0001,
+    READ_WRITE = 0x0002,
+    NON_BLOCK = 0x0800,
+    CLOSE_ON_EXEC = 0x0080000,
+}

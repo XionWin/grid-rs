@@ -53,6 +53,8 @@ impl ModeInfo {
 }
 
 fn get_name(mi: &crate::ffi::objects::DrmModeInfo) -> String {
-    String::from(unsafe {std::ffi::CStr::from_ptr(mi.name.as_ptr())}.to_str().unwrap())
-}
+    String::from(
+        std::ffi::CStr::from_bytes_until_nul(&mi.name).unwrap().to_str().unwrap()
+    )
+} 
 
