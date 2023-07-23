@@ -24,6 +24,6 @@ fn main() {
 fn get_fd(device_path: &str) -> libc::c_int {
     let path = device_path.bytes().collect::<Vec<libc::c_char>>();
     unsafe {
-        libc::open(path.as_ptr(), oflag::OFlag::READ_WRITE as _)
+        libc::open(path.as_ptr(), oflag::OFlag::ReadWrite as _)
     }
 }

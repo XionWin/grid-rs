@@ -1,7 +1,9 @@
 use crate::core::{Connector, Crtc, Encoder};
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct Drm {
+    handle: *const crate::ffi::DrmModeRes,
     connector: Connector,
     
     encoder: Encoder,
@@ -14,11 +16,11 @@ impl Drm {
     where 
         T: FnMut(&Connector) -> bool,
     {
-        let resources_ptr = unsafe {
+        let handle: *const crate::ffi::DrmModeRes = unsafe {
             crate::ffi::drmModeGetResources(fd)
         };
         let resources = unsafe {
-            resources_ptr.as_ref().unwrap()
+            handle.as_ref().unwrap()
         };
 
         let mut connectors = Self::get_connectors(fd, resources);
@@ -40,6 +42,7 @@ impl Drm {
         };
         
         Self{
+            handle,
             connector,
             encoder,
             crtc,
@@ -85,4 +88,13 @@ impl Drm {
         }
     }
 
+}
+
+impl Drop for Drm {
+    fn drop(&mut self) {
+        unsafe {
+            crate::ffi::drmModeFreeResources(self.handle);
+            println!("Drm: {:?} droped", self.handle);
+        }
+    }
 }

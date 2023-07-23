@@ -1,4 +1,5 @@
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct ModeInfo {
     handle: *const crate::ffi::objects::DrmModeInfo,
     clock: libc::c_uint,

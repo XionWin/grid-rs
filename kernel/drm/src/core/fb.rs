@@ -1,4 +1,5 @@
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct Framebuffer {
     handle: *const crate::ffi::DrmModeFramebuffer,
     fb_id: libc::c_uint,

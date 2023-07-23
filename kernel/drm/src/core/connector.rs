@@ -1,4 +1,5 @@
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct Connector {
     handle: *const crate::ffi::DrmModeConnector,
     connector_id: libc::c_uint,

@@ -1,4 +1,5 @@
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct Encoder {
     handle: *const crate::ffi::DrmModeEncoder,
     encoder_id: libc::c_uint,
