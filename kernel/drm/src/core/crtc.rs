@@ -22,7 +22,7 @@ pub struct Crtc
 impl Crtc {
     pub fn new(c: &crate::ffi::DrmModeCrtc) -> Self {
         Self {
-            handle: c as *const crate::ffi::DrmModeCrtc,
+            handle: c,
             crtc_id : c.crtc_id,
             buffer_id : c.buffer_id,
             x : c.x,
@@ -52,7 +52,7 @@ impl Drop for Crtc {
     fn drop(&mut self) {
         unsafe {
             crate::ffi::drmModeFreeCrtc(self.handle);
-            println!("Crtc: {:?} droped", self.handle);
+            println!("Crtc: {:#?} droped", self.handle);
         }
     }
 }

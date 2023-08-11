@@ -12,7 +12,7 @@ pub struct Encoder {
 impl Encoder {
     pub fn new(e: &crate::ffi::DrmModeEncoder) -> Self {
         Self {
-            handle: e as *const crate::ffi::DrmModeEncoder,
+            handle: e,
             encoder_id: e.encoder_id,
             encoder_type: e.encoder_type,
             crtc_id: e.crtc_id,
@@ -34,7 +34,7 @@ impl Drop for Encoder {
     fn drop(&mut self) {
         unsafe {
             crate::ffi::drmModeFreeEncoder(self.handle);
-            println!("Encoder: {:?} droped", self.handle);
+            println!("Encoder: {:#?} droped", self.handle);
         }
     }
 }

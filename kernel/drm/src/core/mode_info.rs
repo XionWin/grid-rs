@@ -25,7 +25,7 @@ pub struct ModeInfo {
 impl ModeInfo {
     pub fn new(mi: &crate::ffi::objects::DrmModeInfo) -> Self {
         Self {
-            handle: mi as *const crate::ffi::objects::DrmModeInfo,
+            handle: mi,
             clock: mi.clock,
             hdisplay: mi.hdisplay,
             hsync_start: mi.hsync_start,

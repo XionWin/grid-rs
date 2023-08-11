@@ -1,14 +1,11 @@
 use crate::core::{Connector, Crtc, Encoder};
 
 #[derive(Debug)]
-#[allow(dead_code)]
 pub struct Drm {
-    handle: *const crate::ffi::DrmModeRes,
-    connector: Connector,
-    
-    encoder: Encoder,
-
-    crtc: Crtc,
+    pub handle: *const crate::ffi::DrmModeRes,
+    pub connector: Connector,
+    pub encoder: Encoder,
+    pub crtc: Crtc,
 }
 
 impl Drm {
@@ -80,7 +77,7 @@ impl Drm {
         }
     }
 
-    fn get_fbs(fd: libc::c_int, r: &crate::ffi::DrmModeRes) -> Vec<crate::core::Framebuffer> {
+    pub fn get_fbs(fd: libc::c_int, r: &crate::ffi::DrmModeRes) -> Vec<crate::core::Framebuffer> {
         unsafe {
             std::slice::from_raw_parts(r.fbs, r.count_fbs as usize).iter().map(|x| {
                 crate::core::Framebuffer::new( crate::ffi::drmModeGetFB(fd, *x).as_ref().unwrap())
@@ -94,7 +91,14 @@ impl Drop for Drm {
     fn drop(&mut self) {
         unsafe {
             crate::ffi::drmModeFreeResources(self.handle);
-            println!("Drm: {:?} droped", self.handle);
+            println!("Drm: {:#?} droped", self.handle);
         }
     }
+}
+
+pub fn is_validated_handle(fd: libc::c_int) -> bool {
+    let handle: *const crate::ffi::DrmModeRes = unsafe {
+        crate::ffi::drmModeGetResources(fd)
+    };
+    handle != std::ptr::null()
 }

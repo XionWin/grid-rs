@@ -51,7 +51,7 @@ impl Drop for Connector {
     fn drop(&mut self) {
         unsafe {
             crate::ffi::drmModeFreeConnector(self.handle);
-            println!("Connector: {:?} droped", self.handle);
+            println!("Connector: {:#?} droped", self.handle);
         }
     }
 }

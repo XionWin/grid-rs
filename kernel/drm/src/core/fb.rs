@@ -14,7 +14,7 @@ pub struct Framebuffer {
 impl Framebuffer {
     pub fn new(fb: &crate::ffi::DrmModeFramebuffer) -> Self {
         Self {
-            handle: fb as *const crate::ffi::DrmModeFramebuffer,
+            handle: fb,
             fb_id: fb.fb_id,
             width: fb.width,
             height: fb.height,
@@ -29,7 +29,7 @@ impl Drop for Framebuffer {
     fn drop(&mut self) {
         unsafe {
             crate::ffi::drmModeFreeFB(self.handle);
-            println!("Framebuffer: {:?} droped", self.handle);
+            println!("Framebuffer: {:#?} droped", self.handle);
         }
     }
 }
