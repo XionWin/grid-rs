@@ -1,7 +1,6 @@
 use std::time::SystemTime;
 
 extern crate libc;
-
 extern crate drm;
 
 #[allow(dead_code)]

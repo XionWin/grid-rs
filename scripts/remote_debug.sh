@@ -23,4 +23,5 @@ fi
 
 # ssh -f "${TARGET_USER}@${SSH_REMOTE}" "sh -c 'cd ${TARGET_BIN_FOLDER}; nohup gdbserver *:${GDBPORT} ${TARGET_BIN_FILE} > /dev/null 2>&1 &'"
 
+# send print text into tty1, we need root permission to do this
 ssh -f "root@${SSH_REMOTE}" "sh -c 'cd ${TARGET_BIN_FOLDER}; gdbserver *:${GDBPORT} ${TARGET_BIN_FILE} > /dev/tty1'"
