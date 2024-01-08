@@ -1,10 +1,10 @@
 use std::time::SystemTime;
 
-use colored::Colorize;
+use color_rs::Colorize;
 use rand::Rng;
 
 extern crate libc;
-extern crate drm;
+extern crate drm_rs;
 
 #[allow(dead_code)]
 mod oflag;
@@ -20,9 +20,9 @@ fn main() {
 
     let fd = utility::get_fd(&path);
     println!("fd: {:#?}", fd);
-    let drm = drm::core::Drm::new(
+    let drm = drm_rs::core::Drm::new(
         fd,
-        |conn| conn.get_connection_status() == drm::ConnectionStatus::Connected
+        |conn| conn.get_connection_status() == drm_rs::ConnectionStatus::Connected
     );
 
     println!("drm handle: {:#?}", drm.handle);

@@ -11,7 +11,7 @@ pub fn get_avaliable_video_card_path() -> Option<String> {
         let fd = get_fd(&card_path);
 
         let is_name_contains = x.as_ref().unwrap().file_name().to_str().unwrap().contains("card");
-        let is_validated = drm::core::is_validated_handle(fd);
+        let is_validated = drm_rs::core::is_validated_handle(fd);
 
         match is_name_contains && is_validated  {
             true => Some(card_path),

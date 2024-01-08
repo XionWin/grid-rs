@@ -9,5 +9,5 @@ edition = "2021"
 libc = "*"
 rand = "*"
 time = { version = "*", features = ["local-offset", "formatting", "macros"] }
-drm = { path="../kernel/drm" }
-colored = { path="../colored" }
+drm-rs = { path="../kernel/drm-rs" }
+color-rs = { path="../color-rs" }
