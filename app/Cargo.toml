@@ -6,5 +6,6 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-libc="*"
-drm={path="../kernel/drm"}
+libc = "*"
+drm = { path="../kernel/drm" }
+time = { version = "*", features = ["local-offset", "formatting", "macros"] }

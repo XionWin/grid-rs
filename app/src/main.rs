@@ -1,26 +1,28 @@
+use std::time::SystemTime;
+
 extern crate libc;
 
 extern crate drm;
 
 #[allow(dead_code)]
 mod oflag;
+mod utility;
 
-mod fd_util;
 
 fn main() {
     println!("====================[grid-rs]====================");
+    println!("datetime: {}", utility::pretty_print_system_time(SystemTime::now()));
 
-    let path = fd_util::get_avaliable_video_card_path().unwrap();
-    println!("first_card_path:{:#?}", path);
+    let path = utility::get_avaliable_video_card_path().unwrap();
+    println!("first_card_path: {:#?}", path);
 
-    let fd = fd_util::get_fd(&path);
-    println!("fd:{:#?}", fd);
+    let fd = utility::get_fd(&path);
+    println!("fd: {:#?}", fd);
     let drm = drm::core::Drm::new(
         fd,
         |conn| conn.get_connection_status() == drm::ConnectionStatus::Connected
     );
 
-    println!("[DRM HANDLE] {:#?}", drm.handle);
+    println!("drm handle: {:#?}", drm.handle);
     let _mode = drm.get_mode();
 }
-
