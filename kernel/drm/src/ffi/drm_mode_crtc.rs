@@ -12,7 +12,7 @@ pub struct DrmModeCrtc {
 
     pub mode_valid: libc::c_int,
 
-    pub mode: crate::ffi::objects::DrmModeInfo,
+    pub mode: crate::ffi::models::DrmModeInfo,
 
     pub gamma_size: libc::c_int,
 }

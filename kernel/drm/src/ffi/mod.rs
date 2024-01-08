@@ -3,7 +3,7 @@ mod drm_mode_connector;
 mod drm_mode_encoder;
 mod drm_mode_crtc;
 mod drm_mode_fb;
-pub(crate) mod objects;
+pub(crate) mod models;
 #[allow(dead_code)]
 pub(crate) mod enums;
 

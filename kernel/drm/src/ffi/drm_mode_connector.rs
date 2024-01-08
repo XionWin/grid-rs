@@ -12,7 +12,7 @@ pub struct DrmModeConnector {
     pub subpixel: crate::ffi::enums::SubPixel, 
 
     pub count_modes: libc::c_int,
-    pub modes: *const crate::ffi::objects::DrmModeInfo,
+    pub modes: *const crate::ffi::models::DrmModeInfo,
 
     pub count_props: libc::c_int,
     pub props: *const libc::c_uint,

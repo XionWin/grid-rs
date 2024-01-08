@@ -7,5 +7,7 @@ edition = "2021"
 
 [dependencies]
 libc = "*"
-drm = { path="../kernel/drm" }
+rand = "*"
 time = { version = "*", features = ["local-offset", "formatting", "macros"] }
+drm = { path="../kernel/drm" }
+colored = { path="../colored" }

@@ -1,7 +1,7 @@
 #[derive(Debug)]
 #[allow(dead_code)]
 pub struct ModeInfo {
-    handle: *const crate::ffi::objects::DrmModeInfo,
+    handle: *const crate::ffi::models::DrmModeInfo,
     clock: libc::c_uint,
 
     hdisplay: libc::c_ushort,
@@ -23,7 +23,7 @@ pub struct ModeInfo {
 }
 
 impl ModeInfo {
-    pub fn new(mi: &crate::ffi::objects::DrmModeInfo) -> Self {
+    pub fn new(mi: &crate::ffi::models::DrmModeInfo) -> Self {
         Self {
             handle: mi,
             clock: mi.clock,
@@ -53,7 +53,7 @@ impl ModeInfo {
     }
 }
 
-fn get_name(mi: &crate::ffi::objects::DrmModeInfo) -> String {
+fn get_name(mi: &crate::ffi::models::DrmModeInfo) -> String {
     String::from(
         std::ffi::CStr::from_bytes_until_nul(&mi.name).unwrap().to_str().unwrap()
     )

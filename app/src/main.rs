@@ -1,5 +1,8 @@
 use std::time::SystemTime;
 
+use colored::Colorize;
+use rand::Rng;
+
 extern crate libc;
 extern crate drm;
 
@@ -8,8 +11,9 @@ mod oflag;
 mod utility;
 
 fn main() {
-    println!("====================[grid-rs]====================");
-    println!("datetime: {}", utility::pretty_print_system_time(SystemTime::now()));
+    let mut rng = rand::thread_rng();
+    println!("{}", "====================[grid-rs]====================".truecolor(rng.gen(), rng.gen(), rng.gen()));
+    println!("datetime: {}", utility::pretty_print_system_time(SystemTime::now()).green());
 
     let path = utility::get_avaliable_video_card_path().unwrap();
     println!("first_card_path: {:#?}", path);
