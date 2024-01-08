@@ -1,5 +1,4 @@
 use std::time::SystemTime;
-
 use color_rs::Colorize;
 use rand::Rng;
 
