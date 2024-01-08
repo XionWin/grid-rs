@@ -8,7 +8,6 @@ extern crate drm;
 mod oflag;
 mod utility;
 
-
 fn main() {
     println!("====================[grid-rs]====================");
     println!("datetime: {}", utility::pretty_print_system_time(SystemTime::now()));
