@@ -6,9 +6,7 @@ pub fn get_avaliable_video_card_path() -> Option<String> {
         let os_path = x.as_ref().unwrap().path();
         let card_path = String::from(os_path.to_str().unwrap());
 
-        println!("card_path:{:#?}", card_path);
         let fd = get_fd(&card_path);
-        println!("fd:{:#?}", fd);
 
         let is_name_contains = x.as_ref().unwrap().file_name().to_str().unwrap().contains("card");
         let is_validated = drm::core::is_validated_handle(fd);
@@ -23,7 +21,7 @@ pub fn get_avaliable_video_card_path() -> Option<String> {
     .map(|x| x.unwrap())
     .collect::<Vec<String>>();
 
-    if validated_card_pathes.len() > 0 {
+    if validated_card_pathes.is_empty() == false {
         Some(String::from(validated_card_pathes.first().unwrap()))
     }
     else {

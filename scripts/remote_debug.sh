@@ -21,4 +21,6 @@ if ! rsync -avz "${BUILD_BIN_FILE}" "${TARGET_USER}@${SSH_REMOTE}:${TARGET_BIN_F
     fi
 fi
 
-ssh -f "${TARGET_USER}@${SSH_REMOTE}" "sh -c 'cd ${TARGET_BIN_FOLDER}; nohup gdbserver *:${GDBPORT} ${TARGET_BIN_FILE} > /dev/null 2>&1 &'"
+# ssh -f "${TARGET_USER}@${SSH_REMOTE}" "sh -c 'cd ${TARGET_BIN_FOLDER}; nohup gdbserver *:${GDBPORT} ${TARGET_BIN_FILE} > /dev/null 2>&1 &'"
+
+ssh -f "root@${SSH_REMOTE}" "sh -c 'cd ${TARGET_BIN_FOLDER}; gdbserver *:${GDBPORT} ${TARGET_BIN_FILE} > /dev/tty1'"

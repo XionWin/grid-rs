@@ -8,7 +8,7 @@ mod oflag;
 mod fd_util;
 
 fn main() {
-    println!("Hello, world!");
+    println!("====================[grid-rs]====================");
 
     let path = fd_util::get_avaliable_video_card_path().unwrap();
     println!("first_card_path:{:#?}", path);
@@ -20,9 +20,7 @@ fn main() {
         |conn| conn.get_connection_status() == drm::ConnectionStatus::Connected
     );
 
-    let mode = drm.get_mode();
     println!("[DRM HANDLE] {:#?}", drm.handle);
-    println!("[DRM MODE] {:#?}", mode); 
-
+    let _mode = drm.get_mode();
 }
 
