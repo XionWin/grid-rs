@@ -42,4 +42,10 @@ fn main() {
         vec![gbm_rs::def::FormatModifier::DRM_FORMAT_MOD_LINEAR],
     );
     println!("gbm: {:#?}", gbm);
-}
+
+    for surface_format in gbm_rs::def::SurfaceFormat::iter() {
+        if gbm.get_surface().get_device().is_format_supported(surface_format, gbm_rs::def::SurfaceFlags::Linear) {
+            println!("{:?}", surface_format);
+        } 
+    }
+} 
