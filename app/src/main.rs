@@ -25,11 +25,10 @@ fn main() {
         utility::pretty_print_system_time(SystemTime::now()).green()
     );
 
-    let path = utility::get_avaliable_video_card_path().unwrap();
-    println!("first_card_path: {:#?}", path);
+    let video_card_info = utility::get_avaliable_video_card().unwrap();
+    println!("video_card_info: {:#?}", video_card_info);
 
-    let fd = utility::get_fd(&path);
-    println!("fd: {:#?}", fd);
+    let fd = video_card_info.fd;
     let drm = drm_rs::core::Drm::new(fd, |conn| {
         conn.get_connection_status() == drm_rs::ConnectionStatus::Connected
     });
@@ -40,7 +39,7 @@ fn main() {
         gbm_rs::def::SurfaceFormat::ARGB8888,
         vec![gbm_rs::def::FormatModifier::DRM_FORMAT_MOD_LINEAR],
     );
-    println!("gbm: {:#?}", gbm);
+    // println!("gbm: {:#?}", gbm);
 
     let supported_surface_format = gbm_rs::def::SurfaceFormat::iter().into_iter().filter(
         |format| {

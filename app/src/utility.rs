@@ -2,7 +2,13 @@ use std::time::SystemTime;
 
 use crate::oflag;
 
-pub fn get_avaliable_video_card_path() -> Option<String> {
+#[derive(Clone, Debug)]
+pub struct VideoCardInfo {
+    pub path: String,
+    pub fd: i32
+}
+
+pub fn get_avaliable_video_card() -> Option<VideoCardInfo> {
     let validated_card_pathes = std::fs::read_dir("/dev/dri").unwrap()
     .map(|x| {
         let os_path = x.as_ref().unwrap().path();
@@ -14,17 +20,17 @@ pub fn get_avaliable_video_card_path() -> Option<String> {
         let is_validated = drm_rs::core::is_validated_handle(fd);
 
         match is_name_contains && is_validated  {
-            true => Some(card_path),
+            true => Some(VideoCardInfo{path: card_path, fd}),
             false => Option::None,
         }
 
     })
     .filter(|x| x.is_some())
     .map(|x| x.unwrap())
-    .collect::<Vec<String>>();
+    .collect::<Vec<VideoCardInfo>>();
 
     if validated_card_pathes.is_empty() == false {
-        Some(String::from(validated_card_pathes.first().unwrap()))
+        Some(validated_card_pathes.first().unwrap().clone())
     }
     else {
         Option::None
