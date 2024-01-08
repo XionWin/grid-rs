@@ -33,7 +33,6 @@ fn main() {
     let drm = drm_rs::core::Drm::new(fd, |conn| {
         conn.get_connection_status() == drm_rs::ConnectionStatus::Connected
     });
-    println!("drm handle: {:#?}", drm.handle);
     let _mode = drm.get_mode();
 
     let gbm = gbm_rs::Gbm::new(
@@ -43,9 +42,15 @@ fn main() {
     );
     println!("gbm: {:#?}", gbm);
 
-    for surface_format in gbm_rs::def::SurfaceFormat::iter() {
-        if gbm.get_surface().get_device().is_format_supported(surface_format, gbm_rs::def::SurfaceFlags::Linear) {
-            println!("{:?}", surface_format);
+    let supported_surface_format = gbm_rs::def::SurfaceFormat::iter().into_iter().filter(
+        |format| {
+            gbm.get_surface().get_device().is_format_supported(*format, gbm_rs::def::SurfaceFlags::Linear)
         } 
-    }
+    ).collect::<Vec<gbm_rs::def::SurfaceFormat>>();
+
+    supported_surface_format.into_iter().for_each(
+        |format| println!("{:?}", format)
+    );
+
+
 } 
